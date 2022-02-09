@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+                <meta name="robots" content="nofollow, notranslate" />
+                <title>Ogham transliterator</title>
+                <style>
+                        html {
+                                overflow-y: scroll;
+                                Scrollbar-color : black grey;
+                                scrollbar-width: thin;
+                        }
+
+                        a:active {
+                                background-color: darkred;}
+
+                        p {
+                                font-size: 22px;
+                                text-decoration: none;}
+
+                        ul {
+                                font-size: 22px;
+                                text-decoration: none;}
+
+                        h3 {
+                                font-size: 24px;
+                                text-decoration: none;}
+
+                        li {
+                                font-size: 22px;}
+
+                        a {
+                                color: green;}
+
+                        a:hover {
+                                color: blueviolet;}
+
+                        button {
+                                background-color: darkred;
+                                color: white;
+                                padding: 10px 30px;
+                                border-radius: 17px;}
+
+                </style>
+                <!--Without style the page would be really plain and boring...-->
+                <script>
+					function check() {
+						if (window.location.search.includes("?")){
+							query = window.location.search;
+							var str = query.split("?inp=");
+							translit(str[1]);
+						}
+					}
+					
+					function keyCheck(e) {
+						if (e.key == "Enter" && e.ctrlKey == true) {
+							translit(document.getElementById('forma').inp.value);
+						}
+					}
+				</script>
+        </head>
+        <body onload="check()" onkeypress="keyCheck(event)">
+                <center>
+                        <button onclick="dark()" id="modetoggle">Dark mode</button>
+                        <h1>Transliterate to Ogham!</h1>
+                        <br/>
+                        <br/>
+                        <form id="forma">
+                                <!--<input type="text" name="inp"/>-->
+                                <textarea name="inp"></textarea>
+                                <br/>
+                                <input type="button" onclick="translit(form.inp.value)" value="Transliterate!"/>
+                        </form>
+                        <p id="placeholder"></p>
+                </center>
+                <script type="text/javascript">
+                        function light() {
+                                document.body.style = "color: #000000 !important; background-color: #eff0f1 !important;";
+                                document.getElementById('modetoggle').setAttribute('onclick', 'dark()');
+                                document.getElementById('modetoggle').innerHTML = "dark mode";
+                        }
+                        function dark() {
+                                document.body.style = "color: #ffffff !important; background-color: #232323 !important;";
+                                document.getElementById('modetoggle').setAttribute('onclick', 'light()');
+                                document.getElementById('modetoggle').innerHTML = 'light mode';
+                        }
+				</script>
+                <script type="text/javascript">
+                        function translit(inpa) {
+                                                        //const inp = form.inp.value;
+                                                        inp = inpa.toLowerCase();
+                                                        var trans = String.fromCharCode(0x169B);
+                                                        const chars = {
+                                                                                        'a': String.fromCharCode(0x1690),
+                                                                                        'b': String.fromCharCode(0x1681),
+                                                                                        'c': String.fromCharCode(0x1689),
+                                                                                        'd': String.fromCharCode(0x1687),
+                                                                                        'e': String.fromCharCode(0x1693),
+                                                                                        'f': String.fromCharCode(0x1683),
+                                                                                        'g': String.fromCharCode(0x168C),
+                                                                                        'h': String.fromCharCode(0x1686),
+                                                                                        'i': String.fromCharCode(0x1694),
+                                                                                        'j': String.fromCharCode(0x1694),
+                                                                                        'k': String.fromCharCode(0x1689),
+                                                                                        'l': String.fromCharCode(0x1682),
+                                                                                        'm': String.fromCharCode(0x168B),
+                                                                                        'n': String.fromCharCode(0x1685),
+                                                                                        'o': String.fromCharCode(0x1691),
+                                                                                        'p': String.fromCharCode(0x169A),
+                                                                                        'q': String.fromCharCode(0x168A),
+                                                                                        'r': String.fromCharCode(0x168F),
+                                                                                        's': String.fromCharCode(0x1684),
+                                                                                        't': String.fromCharCode(0x1688),
+                                                                                        'u': String.fromCharCode(0x1692),
+                                                                                        'v': String.fromCharCode(0x1683),
+                                                                                        'w': String.fromCharCode(0x1692, 0x1692),
+                                                                                        'x': String.fromCharCode(0x1699),
+                                                                                        'y': String.fromCharCode(0x1694),
+                                                                                        'z': String.fromCharCode(0x168E),
+                                                                                        ' ': String.fromCharCode(0x1680)
+                                                                                };
+                                                        for (let i = 0; i < inp.length; i++){
+                                                                                        if (inp[i] in chars){
+                                                                                                                        trans += chars[inp[i]];
+                                                                                        }
+                                                                                        else if (inp[i] == "\n"){
+                                                                                                                        trans += String.fromCharCode(0x169C)
+                                                                                                                        trans += "<br/>";
+                                                                                                                        trans += String.fromCharCode(0x169B);
+                                                                                        } else {
+                                                                                                                        trans += inp[i];
+                                                                                        }
+                                                        }
+                                                        trans +=String.fromCharCode(0x169C);
+                                                        document.getElementById('placeholder').innerHTML = trans;
+									}
+                </script>
+        </body>
+</html>
