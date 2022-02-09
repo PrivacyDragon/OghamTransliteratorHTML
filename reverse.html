@@ -1,0 +1,141 @@
+
+
+<!DOCTYPE html>
+<html>
+        <head>
+                <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+                <meta name="robots" content="nofollow, notranslate" />
+                <title>Ogham transliterator</title>
+                <style>
+                        html {
+                                overflow-y: scroll;
+                                Scrollbar-color : black grey;
+                                scrollbar-width: thin;
+                        }
+
+                        a:active {
+                                background-color: darkred;}
+
+                        p {
+                                font-size: 22px;
+                                text-decoration: none;}
+
+                        ul {
+                                font-size: 22px;
+                                text-decoration: none;}
+
+                        h3 {
+                                font-size: 24px;
+                                text-decoration: none;}
+
+                        li {
+                                font-size: 22px;}
+
+                        a {
+                                color: green;}
+
+                        a:hover {
+                                color: blueviolet;}
+
+                        button {
+                                background-color: darkred;
+                                color: white;
+                                padding: 10px 30px;
+                                border-radius: 17px;}
+
+                </style>
+                <!--Without style the page would be really plain and boring...-->
+                <script>
+					function check() {
+						if (window.location.search.includes("?")){
+							query = window.location.search;
+							var str = query.split("?inp=");
+							translit(str[1]);
+						}
+					}
+					
+					function keyCheck(e) {
+						if (e.key == "Enter" && e.ctrlKey == true) {
+							translit(document.getElementById('forma').inp.value);
+						}
+					}
+				</script>
+        </head>
+        <body onload="check()" onkeypress="keyCheck(event)">
+                <center>
+                        <button onclick="dark()" id="modetoggle">Dark mode</button>
+                        <h1>Transliterate Ogham to our own alphabet!</h1>
+                        <br/>
+                        <br/>
+                        <form id="forma">
+                                <!--<input type="text" name="inp"/>-->
+                                <textarea name="inp"></textarea>
+                                <br/>
+                                <input type="button" onclick="translit(form.inp.value)" value="Transliterate!"/>
+                        </form>
+                        <p id="placeholder"></p>
+                </center>
+                <script type="text/javascript">
+                        function light() {
+                                document.body.style = "color: #000000 !important; background-color: #eff0f1 !important;";
+                                document.getElementById('modetoggle').setAttribute('onclick', 'dark()');
+                                document.getElementById('modetoggle').innerHTML = "dark mode";
+                        }
+                        function dark() {
+                                document.body.style = "color: #ffffff !important; background-color: #232323 !important;";
+                                document.getElementById('modetoggle').setAttribute('onclick', 'light()');
+                                document.getElementById('modetoggle').innerHTML = 'light mode';
+                        }
+				</script>
+                <script type="text/javascript">
+                        function translit(inp) {
+                                                        //const inp = form.inp.value;
+                                                        var trans = "";
+                                                        const chars = {
+											'ᚐ': 'a',
+											'ᚁ': 'b',
+											'ᚉ': 'c',
+											'ᚇ': 'd',
+											'ᚓ': 'e',
+											'ᚃ': 'f',
+											'ᚌ': 'g',
+											'ᚆ': 'h',
+											'ᚔ': 'i',
+											'ᚂ': 'l',
+											'ᚋ': 'm',
+											'ᚅ': 'n',
+											'ᚑ': 'o',
+											'ᚘ': 'ia',
+											'ᚊ': 'q',
+											'ᚏ': 'r',
+											'ᚄ': 's',
+											'ᚈ': 't',
+											'ᚒ': 'u',
+											'ᚙ': 'x',
+											'ᚎ': 'z',
+											'ᚍ': 'ng',
+											'ᚕ': 'ea',
+											'ᚖ': 'th',
+											'ᚗ': 'io',
+											'ᚚ': 'p',
+											' ': ' ',
+											'᚛': '',
+											'᚜': ''
+                                                                                };
+                                                        for (let i = 0; i < inp.length; i++){
+                                                                                        if (inp[i] in chars){
+                                                                                                                        trans += chars[inp[i]];
+                                                                                        }
+			else if (inp[i] == "\n") {
+				trans += "<br/>\n"
+			}
+                                                                           		else {
+                                                                                                                        trans += inp[i];
+                                                                                        }
+                                                        }
+                                                        document.getElementById('placeholder').innerHTML = trans;
+									}
+                </script>
+        </body>
+</html>
+
